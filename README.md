@@ -1,3 +1,12 @@
+# Setup
+
+Run the `setup.sh` script
+
+```
+./setup.sh
+```
+
+
 # `ssh-copy-id-from-github.py`
 
 ```
