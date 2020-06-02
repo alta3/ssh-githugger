@@ -36,6 +36,7 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
                 host="api.github.com", path=f"/users/{user}/keys"
             )
             err, data = await client.get_data()
+            print(err, "\n\n\n\n", data)
             user_keys = [Key(**k, user=user) for k in data]
             self.keys = [*self.keys, *user_keys]
 
