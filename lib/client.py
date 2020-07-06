@@ -1,5 +1,4 @@
-import sys
-
+import sys                                                                                                                                                                                                                                                                     
 import asyncio
 from asyncio.exceptions import TimeoutError
 
@@ -78,4 +77,4 @@ class BaseClient:
 
             except Exception as err:
                 self.logger.error(err)
-                return (err, None)
+                return (err, None)                    
