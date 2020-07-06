@@ -1,5 +1,6 @@
 import pwd
 import os
+import json
 import tempfile
 from typing import Union, List
 from dataclasses import dataclass, field
@@ -29,16 +30,34 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
         if self.filename is None:
             err, self.filename = self.keyfile(user=self.user, write=True)
 
-    async def collect_keys(self):
+    async def collect_keys(self, host="api.github.com", is_ssl=True, port=""):
+        try:
+            for user in self.github_users:
+                client = BaseClient(
+                    host=host, path=f"/users/{user}/keys", is_ssl=is_ssl, port=port
+                )
+                err, data = await client.get_data()
+                user_keys = [Key(**k, user=user) for k in data]
+                self.keys = [*self.keys, *user_keys]
+        except TypeError:
+            print("One of those users does not exist")
+            exit()
 
+    async def jsonize(self):
+        json_data = []
         for user in self.github_users:
-            client = BaseClient(
-                host="api.github.com", path=f"/users/{user}/keys"
+            client=BaseClient(
+                    host="api.github.com", path=f"/users/{user}/keys"
             )
             err, data = await client.get_data()
-            print(err, "\n\n\n\n", data)
-            user_keys = [Key(**k, user=user) for k in data]
-            self.keys = [*self.keys, *user_keys]
+            json_data.append({user: data})
+        self.json_data = json_data
+
+
+    def json_to_file(self):
+        with open("/home/ubuntu/keyfile.gh", "w") as f:
+            f.write(json.dumps(self.json_data))
+
 
     def keyfile(
         self,
@@ -51,7 +70,7 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
         """
         Calculate name of authorized keys file, optionally creating the
         directories and file, properly setting permissions.
-    
+
         :param str user: name of user in passwd file
         :param bool write: if True, write changes to authorized_keys file (creating directories if needed)
         :param str path: if not None, use provided path rather than default of '~user/.ssh/authorized_keys'
@@ -107,8 +126,8 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
             os.chmod(keysfile, int("0600", 8))
         except OSError:
             pass
-
         return (None, keysfile)
+
 
     def serialize(self):
         lines = []
@@ -135,4 +154,4 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
         try:
             os.rename(tmp_path, self.filename)
         except Exception as err:
-            return (err, None)
+            return (err, None)    
