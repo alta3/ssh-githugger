@@ -148,6 +148,34 @@
 
     `sudo systemctl reload ssh`
 
+### Might as well make a welcome banner that does some work whem you ssh in
+
+1. Install landscape common to show status at login
+
+    `sudo apt install landscape-common figlet`
+
+0. Remove boring stuff from motd banner
+
+    `sudo chmod 640 10-help-text`
+
+    `sudo chmod 640 50-motd-news`
+
+0. Add yellow figlet banner. Be sure to edit the sumi number
+
+    `sudo vim /etc/update-motd.d/00-header`
+
+    ```
+    GREEN="\e[92m"
+    YELLOW="\e[33m"
+    WHITE="\e[37m"
+    printf "${YELLOW}"
+    figlet SUMI-xx  <--edit sumi number
+    echo Keeper of VMs
+    printf "${GREEN}"
+    ```
+
+
+
 
 ### TODO
 
