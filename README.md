@@ -6,7 +6,7 @@
 
    `cd`
    
-0. Intsall git
+0. Install git
 
     `sudo apt install -y git`
    
