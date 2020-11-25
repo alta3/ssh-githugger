@@ -49,6 +49,29 @@
 
     `cat ~/.ssh/authorized_keys`
 
+### If you want to use a python virtual environment, then do this ..
+
+1. Install a 3.8 virtual environment.
+
+    `python3.8 -m pip install virtualenv`
+    
+0. Create the virtual environment
+
+    `virtualenv -p python3.8 venv`
+    
+0. Activate the virtual enironment
+
+    `source /bin/activate`
+    
+0. Exit the virtual environment like this
+
+    ```
+    (venv) ubuntu@sumi-09:~/ssh-githugger$ deactivate
+    ubuntu@sumi-09:~/ssh-githugger$
+    ```
+    
+
+
 
 ### If you got this far, it is safe to remove SSH PASSWORDS!
 
