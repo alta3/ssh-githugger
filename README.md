@@ -82,23 +82,25 @@
 
     `sudo vim /etc/systemd/system/githugger.service`
 
-    ```
-    # Simple service unit file to run githugger as a one-shot
-    #
+   ```
+   # Simple service unit file to run githugger as a one-shot
+   #
 
-    [Unit]
-    Description=githugger ssh key updates
-    After=network-online.target                                                                            
-    Wants=network-online.target
+   [Unit]
+   Description=githugger ssh key updates
+   After=network-online.target
+   Wants=network-online.target
 
-    [Service]
-    Type=oneshot
-    ExecStart=/home/ubuntu/ssh-githugger/python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys sfeeser seaneon bryfry sgriffith3
-    StandardOutput=journal+console
+   [Service]
+   Type=oneshot
+   User=ubuntu
+   WorkingDirectory=/home/ubuntu/ssh-githugger/
+   ExecStart=/home/ubuntu/ssh-githugger/venv/bin/python3.8 ssh-copy-id-from-github.py -a -f /home/ubuntu/.ssh/authorized_keys sfeeser seaneon bryfry sgriffith3
+   StandardOutput=journal+console
 
-    [Install]
-    WantedBy=multi-user.target
-    ```
+   [Install]
+   WantedBy=multi-user.target    
+   ```
 
 0. This file does not need to be executable, but for security, it does need user and group ownership by root and 644 or 640 permissions
 
