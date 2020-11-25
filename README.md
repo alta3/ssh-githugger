@@ -20,7 +20,7 @@
 
     `./setup.sh`
   
-0. Run the help example
+0. Run the help example to determine if installation was successful.
 
     `python3.8 ssh-copy-id-from-github.py -h`
   
@@ -64,6 +64,10 @@
     `source /bin/activate`
 
 0. Do all your python commands here.
+
+    ```
+    (venv) ubuntu@sumi-09:~/ssh-githugger$ 
+    ```
 
 0. Exit the virtual environment like this
 
