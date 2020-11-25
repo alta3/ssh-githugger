@@ -161,7 +161,9 @@
 
 0. Remove boring stuff from motd banner
 
-    `sudo chmod 640 10-help-text 640 91-release-upgrade 50-motd-news`  
+    `sudo cd /etc/update-motd.d`
+    
+    `sudo chmod 640 10-help-text 91-release-upgrade 50-motd-news`  
 
 0. Add yellow figlet banner. Be sure to edit the sumi number
 
