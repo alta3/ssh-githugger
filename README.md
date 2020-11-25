@@ -50,6 +50,19 @@
     `cat ~/.ssh/authorized_keys`
 
 
+### If you got this far, it is safe to remove SSH PASSWORDS!
+
+1. Edit the ssh config file
+
+    `sudo vim /etc/ssh/sshd_config`
+    
+     Set `PasswordAuthentication no`
+
+0. Restart ssh server
+
+    `sudo systemctl reload ssh`
+
+
 ### TODO
 
 - [ ] Add more docstrings
