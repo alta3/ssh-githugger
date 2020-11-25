@@ -101,7 +101,24 @@
    [Install]
    WantedBy=multi-user.target    
    ```
+   
+0. Create githugger timer 
 
+   ```
+   [Unit]
+   Description=Run ssh-githugger every day at 23:00 ZULU
+   Requires=githugger.service
+
+   [Timer]
+   Unit=githugger.service
+   OnCalendar=*-*-* 23:00:00
+   RandomizeDelaySec=60
+   AccuracySec=1s
+
+   [Install]
+   WantedBy=timers.target
+   ```
+   
 0. This file does not need to be executable, but for security, it does need user and group ownership by root and 644 or 640 permissions
 
     `sudo chmod 644 /etc/systemd/system/githugger.service`
