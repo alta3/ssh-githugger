@@ -131,12 +131,11 @@
 
 0. enable the service on boot.
 
-    `sudo systemctl enable githugger.*`
+    `sudo systemctl enable /etc/systemd/system/githugger.*`
 
 0. start up the service
 
-    `sudo systemctl start githugger.service`
-
+    `sudo systemctl start /etc/systemd/system/githugger.service`
 
 ### If you got this far, it is safe to remove SSH PASSWORDS!
 
