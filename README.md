@@ -148,7 +148,7 @@
 
     `sudo systemctl reload ssh`
 
-### Might as well make a welcome banner that does some work whem you ssh in
+### Create an informational welcome banner
 
 1. Install landscape common to show status at login
 
