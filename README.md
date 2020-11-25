@@ -135,7 +135,7 @@
 
 0. start up the service
 
-    `sudo systemctl start /etc/systemd/system/githugger.service`
+    `sudo systemctl start githugger.service`
 
 ### If you got this far, it is safe to remove SSH PASSWORDS!
 
