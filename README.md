@@ -151,15 +151,15 @@
 
 ### TODO
 
-- [ ] Add more docstrings
-- [ ] Cleanup functions, refactor if defaults are never exposed
-- [ ] Add logging of all actions completed or failed (stderr) 
-- [ ] Add last updated date to the serilization header comment
-- [x] Document how-to: Install in a venv
-- [ ] Document how-to: Do a non-destructive test run (example usage)
-- [x] Document how-to: Deployment via systemd periodic task
-- [ ] Document how-to: Install via ansible role
-- [ ] Document how-to: Install via pip
+<input type="checkbox"> Add more docstrings
+<input type="checkbox"> Cleanup functions, refactor if defaults are never exposed
+<input type="checkbox"> Add logging of all actions completed or failed (stderr) 
+<input type="checkbox"> Add last updated date to the serilization header comment
+<input type="checkbox" checked> Document how-to: Install in a venv
+<input type="checkbox"> Document how-to: Do a non-destructive test run (example usage)
+<input type="checkbox" checked> Document how-to: Deployment via systemd periodic task
+<input type="checkbox"> Document how-to: Install via ansible role
+<input type="checkbox"> Document how-to: Install via pip
 
 ### Possible future features
 
