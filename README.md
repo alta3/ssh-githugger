@@ -10,7 +10,7 @@
 
     `sudo apt install -y git`
    
-0. clone this repo, yes a the the prompt
+0. clone this repo, yes at the the prompt
 
     `git clone git@github.com:alta3/ssh-githugger.git`
 
