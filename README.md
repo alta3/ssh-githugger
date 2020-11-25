@@ -104,6 +104,8 @@
    
 0. Create githugger timer 
 
+    `sudo vim /etc/systemd/system/githugger.timer`
+
    ```
    [Unit]
    Description=Run ssh-githugger every day at 23:00 ZULU
@@ -125,7 +127,7 @@
 
 0. reload the daemon
 
-    `sudo systemctl daemon reload`
+    `sudo systemctl daemon-reload`
 
 0. enable the service on boot.
 
