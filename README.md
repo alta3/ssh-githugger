@@ -1,7 +1,7 @@
 # Setup
 
 
-```
+
 1. cd to the home directory
 
    `cd`
@@ -9,20 +9,20 @@
 
 0. clone this repo
 
-  `git clone git@github.com:alta3/ssh-githugger.git`
+    `git clone git@github.com:alta3/ssh-githugger.git`
     
 
 0. cd into the cloned directory
 
-  `cd ssh-githugger/`
+    `cd ssh-githugger/`
   
 0. Run the setup script to load requirements plus python 3.8
 
-  `./setup.sh`
+    `./setup.sh`
   
 0. Run the help example
 
-  `python3.8 ssh-copy-id-from-github.py -h`
+    `python3.8 ssh-copy-id-from-github.py -h`
   
     ```
     usage: ssh-copy-id-from-github.py [-h] [-a] [-O | -f FILE] [-u USER] username [username ...]
@@ -41,11 +41,11 @@
   
 0. Now install the keys for Sam, Stu, Sean, and BJ. Please use the `-a` to add information about who owns the keys
 
-    `python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys  sfeeser seaneon bryfry sgriffith3`  
+      `python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys  sfeeser seaneon bryfry sgriffith3`  
     
 0. Cat the changes to the .ssh authorized key file.
 
-  `cat ~/.ssh/authorized_keys`
+    `cat ~/.ssh/authorized_keys`
 
 
 ### TODO
