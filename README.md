@@ -137,6 +137,10 @@
 
     `sudo systemctl start githugger.service`
 
+0. start up the timer
+
+    `sudo systemctl start githugger.timer`
+    
 ### If you got this far, it is safe to remove SSH PASSWORDS!
 
 1. Edit the ssh config file
