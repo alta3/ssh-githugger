@@ -39,9 +39,9 @@
       R, --user USER  store output for USER
     ```
   
-0. Now install the keys for Sam, Stu, Sean, and BJ. Please use the `-a` to add information about who owns the keys
+0. Install the keys for Sam, Stu, Sean, and BJ. Please use the `-a` to add information about who owns the keys
 
-      `python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys  sfeeser seaneon bryfry sgriffith3`  
+    `python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys sfeeser seaneon bryfry sgriffith3`  
     
 0. Cat the changes to the .ssh authorized key file.
 
