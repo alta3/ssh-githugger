@@ -45,7 +45,7 @@
 
 0. SHORTCUT!  Just run `sh ./get-keys.sh` to run the above command
 
-0. Cat the changes to the .ssh authorized key file.
+0. Display the changes to the .ssh authorized key file.
 
     `cat ~/.ssh/authorized_keys`
 
