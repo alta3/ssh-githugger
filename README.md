@@ -78,7 +78,7 @@
 
 ### Create a service unit file for githugger.
 
-0. Create a one-shot service unit file
+1. Create a one-shot service unit file
 
     `sudo vim /etc/systemd/system/githugger.service`
 
