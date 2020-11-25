@@ -6,17 +6,43 @@
 
    `cd`
    
+0. Intsall git
 
+    `sudo apt install git`
+   
 0. clone this repo
 
     `git clone git@github.com:alta3/ssh-githugger.git`
-    
 
 0. cd into the cloned directory
 
     `cd ssh-githugger/`
-  
+
+0. Install pip and upgrade
+
+    `sudo apt install python3-pip`
+    
+    `sudo -H pip3 install --upgrade pip`
+
 0. Run the setup script to load requirements plus python 3.8
+
+    `./setup.sh`
+
+0. Install a 3.8 virtual environment.
+
+    `python3.8 -m pip install virtualenv`
+    
+0. Create a 3.8 virtual environment
+
+    `sudo apt install virtualenv`
+
+    `virtualenv -p python3.8 venv`
+    
+0. Activate the virtual enironment
+
+    `source venv/bin/activate`
+
+0. Run the setup script (again) inside the venv to load requirements 
 
     `./setup.sh`
   
@@ -49,27 +75,9 @@
 
     `cat ~/.ssh/authorized_keys`
 
-### If you want to use a python virtual environment, then do this ..
-
-1. Install a 3.8 virtual environment.
-
-    `python3.8 -m pip install virtualenv`
-    
-0. Create a 3.8 virtual environment
-
-    `virtualenv -p python3.8 venv`
-    
-0. Activate the virtual enironment
-
-    `source venv/bin/activate`
-
-0. Do all your python commands here.
-
-    ```
-    (venv) ubuntu@sumi-09:~/ssh-githugger$ 
-    ```
-
 0. Exit the virtual environment like this
+
+    `deactivate`
 
     ```
     (venv) ubuntu@sumi-09:~/ssh-githugger$ deactivate
