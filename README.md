@@ -75,8 +75,34 @@
     (venv) ubuntu@sumi-09:~/ssh-githugger$ deactivate
     ubuntu@sumi-09:~/ssh-githugger$
     ```
-    
 
+### Create a service unit file for githugger.
+
+0. Create a one-shot service unit file
+
+    `sudo vim /etc/systemd/system/githugger.service`
+
+    ```
+    # Simple service unit file to run githugger as a one-shot
+    #
+
+    [Unit]
+    Description=githugger ssh key updates
+    After=network-online.target                                                                            
+    Wants=network-online.target
+
+    [Service]
+    Type=oneshot
+    ExecStart=/home/ubuntu/ssh-githugger/python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys sfeeser seaneon bryfry sgriffith3
+    StandardOutput=journal+console
+
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+0. This file does not need to be executable, but for security, it does need user and group ownership by root and 644 or 640 permissions
+
+    `sudo chmod 644 /etc/systemd/system/githugger.service`
 
 
 ### If you got this far, it is safe to remove SSH PASSWORDS!
