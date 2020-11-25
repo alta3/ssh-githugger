@@ -8,7 +8,7 @@
    
 0. Install git
 
-    `sudo apt install -y git`
+    `sudo apt install -y git python3.8 virtualenv`
    
 0. clone this repo, yes at the the prompt
 
@@ -27,8 +27,6 @@
     `python3.8 -m pip install virtualenv`
     
 0. Create a 3.8 virtual environment
-
-    `sudo apt install virtualenv`
 
     `virtualenv -p python3.8 venv`
     
