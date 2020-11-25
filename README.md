@@ -123,6 +123,10 @@
 
     `sudo chmod 644 /etc/systemd/system/githugger.service`
 
+0. reload the daemon
+
+    `sudo systemctl daemon reload`
+
 0. enable the service on boot.
 
     `sudo systemctl enable githugger.*`
