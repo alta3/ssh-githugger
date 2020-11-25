@@ -8,9 +8,9 @@
    
 0. Intsall git
 
-    `sudo apt install git`
+    `sudo apt install -y git`
    
-0. clone this repo
+0. clone this repo, yes a the the prompt
 
     `git clone git@github.com:alta3/ssh-githugger.git`
 
@@ -18,15 +18,9 @@
 
     `cd ssh-githugger/`
 
-0. Install pip and upgrade
-
-    `sudo apt install python3-pip`
+0. Upgrade pip
     
     `sudo -H pip3 install --upgrade pip`
-
-0. Run the setup script to load requirements plus python 3.8
-
-    `./setup.sh`
 
 0. Install a 3.8 virtual environment.
 
