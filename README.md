@@ -61,7 +61,7 @@
     
 0. Activate the virtual enironment
 
-    `source /bin/activate`
+    `source venv/bin/activate`
 
 0. Do all your python commands here.
 
