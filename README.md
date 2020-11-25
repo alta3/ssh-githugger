@@ -55,14 +55,16 @@
 
     `python3.8 -m pip install virtualenv`
     
-0. Create the virtual environment
+0. Create a 3.8 virtual environment
 
     `virtualenv -p python3.8 venv`
     
 0. Activate the virtual enironment
 
     `source /bin/activate`
-    
+
+0. Do all your python commands here.
+
 0. Exit the virtual environment like this
 
     ```
