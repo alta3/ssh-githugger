@@ -161,7 +161,7 @@
 
 0. Remove boring stuff from motd banner
 
-    `sudo cd /etc/update-motd.d`
+    `cd /etc/update-motd.d`
     
     `sudo chmod 640 10-help-text 91-release-upgrade 50-motd-news`  
 
