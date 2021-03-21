@@ -10,14 +10,14 @@ def parse_args():
         metavar="username",
         type=str,
         nargs="+",
-        help="Public key source Github usernames",
+        help="CSV String: A positional argument in CSV form, listing Github usernames. EXAMPLE: ssh-copy-id-from-github.py -a -f authorized_keys sally,sid,jasper",
     )
     parser.add_argument(
         "-a",
         "--annotate",
         dest="annotate",
         action="store_true",
-        help="store public key source details in key annotation",
+        help="Boolean: Triggers any discovered metadata to be added as an annotation to the key data",
     )
     output_group = parser.add_mutually_exclusive_group()
     output_group.add_argument(
@@ -25,17 +25,21 @@ def parse_args():
         "--to-stdout",
         dest="stdout",
         action="store_true",
-        help="write results to standard output",
+        help="Boolean: Triggers results to be sent to standard out ONLY",
     )
     output_group.add_argument(
-        "-f", "--file", type=str, default=None, help="store output in FILE"
+        "-f", 
+        "--file", 
+        type=str, 
+        default=None, 
+        help="String: The FILENAME that stores the results. "
     )
     parser.add_argument(
         "-u",
         "--user",
         type=str,
         default=None,
-        help="store output for USER",
+        help="String: The LINUX USER that the ssh-keys gain access",
     )
     parser.set_defaults(stdout=False, annotate=False)
     return parser.parse_args()
