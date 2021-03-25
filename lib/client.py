@@ -121,7 +121,6 @@ class BaseClient:
                         if (resp.status == 404 ):
                             err = f"{resp.status} github user \"{self.path}\" does not exist"
                             return (err, data)
-#                            raise UserNotFound(self, f"YOU DON'T EXIST!!!") 
                     return (None, data)
             except ClientConnectorError as err:
                 self.logger.error(err)
