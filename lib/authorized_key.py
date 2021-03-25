@@ -44,9 +44,7 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
             err, data = await client.get_data()
             if (err != None):
                 msg = (f"The user: ------>{user}<------ does NOT exist on github")
-                print(f"\n") 
                 self.logger.error(msg)
-                print("\n\n")
                 exit(1)
             user_keys = [Key(**k, user=user) for k in data]
             self.keys = [*self.keys, *user_keys]
