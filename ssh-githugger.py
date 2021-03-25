@@ -36,7 +36,7 @@ def parse_args():
     )
     parser.add_argument(
         "-t",
-        "--targetuser",
+        "--target_user",
         type=str,
         default=None,
         help="String: The LINUX USER that the ssh-keys will target",
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         github_users=args.source_user,
         annotate=args.annotate,
         verbose=args.verbose,
-        user=args.targetuser,
+        user=args.target_user,
         filename=args.file,
     )
     loop.run_until_complete(ak.collect_keys())

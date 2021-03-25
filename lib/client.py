@@ -9,6 +9,10 @@ import aiohttp
 from aiohttp.client_exceptions import ClientConnectorError
 
 import logging
+import logging.handlers
+from logging.handlers import SysLogHandler
+from logging import Formatter
+
 
 from typing import List, Optional
 
@@ -45,6 +49,11 @@ class BaseClient:
         self.scheme = "https" if self.is_ssl else "http"
         self.url = f"{self.scheme}://{self.host}:{self.port}{self.path}"
         self.logger = logging.getLogger("aiohttp.internal")
+        self.logger.setLevel(logging.DEBUG)
+        self.handler = SysLogHandler(facility=SysLogHandler.LOG_DAEMON, address='/dev/log')
+        self.logger.addHandler(self.handler)
+        self.log_format = '[%(levelname)s] %(filename)s:%(funcName)s:%(lineno)d \"%(message)s\"'
+        self.handler.setFormatter(Formatter(fmt=self.log_format))
         self.max_timeout = max_timeout
         self.max_retry_wait = max_retry_wait
         self.countdown = countdown
