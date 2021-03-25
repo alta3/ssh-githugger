@@ -6,11 +6,11 @@ from lib.authorized_key import GithubAuthorizedKeyFile
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "users",
+        "source_user",
         metavar="username",
         type=str,
         nargs="+",
-        help="CSV String: A positional argument in CSV form, listing Github usernames. EXAMPLE: ssh-copy-id-from-github.py -a -f authorized_keys sally,sid,jasper",
+        help="CSV String: A positional argument in CSV form, listing Github usernames. EXAMPLE: ssh-githugger.py sally,sid,jasper",
     )
     parser.add_argument(
         "-a",
@@ -35,11 +35,17 @@ def parse_args():
         help="String: The FILENAME that stores the results. "
     )
     parser.add_argument(
-        "-u",
-        "--user",
+        "-t",
+        "--targetuser",
         type=str,
         default=None,
-        help="String: The LINUX USER that the ssh-keys gain access",
+        help="String: The LINUX USER that the ssh-keys will target",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Boolean: Show HTTP headers and ratelimit information",
     )
     parser.set_defaults(stdout=False, annotate=False)
     return parser.parse_args()
@@ -49,9 +55,10 @@ if __name__ == "__main__":
     args = parse_args()
     loop = asyncio.get_event_loop()
     ak = GithubAuthorizedKeyFile(
-        github_users=args.users,
+        github_users=args.source_user,
         annotate=args.annotate,
-        user=args.user,
+        verbose=args.verbose,
+        user=args.targetuser,
         filename=args.file,
     )
     loop.run_until_complete(ak.collect_keys())

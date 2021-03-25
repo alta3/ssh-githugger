@@ -12,7 +12,7 @@ import logging
 
 from typing import List, Optional
 
-from lib.exceptions import RateLimited, UserNotFound
+# from lib.exceptions import RateLimited, UserNotFound
 
 class BaseClient:
     def __init__(
@@ -20,6 +20,7 @@ class BaseClient:
         *,
         host,
         path,
+        verbose,
         port="",
         is_ssl=True,
         timeout=5,
@@ -37,6 +38,7 @@ class BaseClient:
         self.host = host
         self.port = port
         self.path = path
+        self.verbose = verbose
         self.timeout = timeout
         self.retries = retries
         self.retry_wait = retry_wait
@@ -50,11 +52,23 @@ class BaseClient:
         self.filo_queue_step = filo_queue_step
         self.rate_limit_in_effect = rate_limit_in_effect
 
+        """
+        Calculate First in Last out queing when RATE LIMITING ACTIVE
+        When many githuggers are active, ultimately, they may be rate
+        limited. So to keep it fair, the most tenacious githuggers will win. 
+        First in Last Out means:
+        A countdown timer is extablished when rate limiting occurs, this
+        is normally one hour the moment rate limiting begins. When countdown
+        reaches zero, everyone races to grab limited resources, but...
+        On the 1st try, an extra 60 seconds TAX is added to the countdown
+        On the 2nd try, an extra 50 seconds TAX is added to the countdown
+        On the 6th try, an extra  0 seconds TAX is added to the countdown
+        """
+
     async def retry_after_wait(self, err, func, ):
         print(f"Rate-Limiting? {self.rate_limit_in_effect}")
         if self.retries > 0:
             if self.rate_limit_in_effect:
-                # First trip down the rate limit path? Get to the END OF THE LINE. Last trip? You are next.
                 print(f"Non LILO queuing { self.countdown}")
                 self.countdown = self.countdown +  ( self.retries * self.filo_queue_step )
                 msg = f"Sleeping the Rate Limit for {self.countdown}sec. {self.retries} retries remaining"
@@ -83,25 +97,22 @@ class BaseClient:
                 async with session.get(self.url) as resp:
                     data = await resp.json()
                     hed = resp.headers
-                    print(f"data = {data}\n")
-                    # TODO - Only output headers on debug flag from parse_args()
-                    print(f"headers = {hed}")
-                    print(f"Total Limit:        {hed['X-RateLimit-Limit']}")
-                    print(f"Remaining:          {hed['X-RateLimit-Remaining']}")
-                    print(f"Reset Time (Epoch): {hed['X-RateLimit-Reset']}")
-                    reset_date = time.gmtime(int(hed['X-RateLimit-Reset']))
-                    reset_time = time.strftime("%Y-%m-%d %H:%M:%S", reset_date)
                     self.countdown =  int(hed['X-RateLimit-Reset']) - int(time.time())
-#                   print(f"Reset Time (GMT):   {reset_time}")
-                    print(f"Countdown to reset: {self.countdown}")
+                    if (self.verbose):
+                        print(f"DATA    = {data}\n")
+                        print(f"HEADERS = {hed}\n")
+                        print(f"Total Limit:        {hed['X-RateLimit-Limit']}")
+                        print(f"Remaining:          {hed['X-RateLimit-Remaining']}")
+                        print(f"Countdown to reset: {self.countdown}")
                     if isinstance(data, dict):
                         if int(hed['X-RateLimit-Remaining']) <= 0:
                             self.rate_limit_in_effect = True
-                            err="Doh, RateLimting in effect"
+                            err="RateLimting in effect"
                             return await self.retry_after_wait(err, self.get_data)
                         if (resp.status == 404 ):
-                            err = f"{resp.status} Bad github userID!"
-                            raise UserNotFound(self.path, f"YOU DON'T EXIST!!!") 
+                            err = f"{resp.status} github user \"{self.path}\" does not exist"
+                            return (err, data)
+#                            raise UserNotFound(self, f"YOU DON'T EXIST!!!") 
                     return (None, data)
             except ClientConnectorError as err:
                 self.logger.error(err)
