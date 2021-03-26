@@ -3,15 +3,15 @@
 
 1. Clone githugger
 
- `git clone git@github.com:alta3/ssh-githugger`
+   `git clone git@github.com:alta3/ssh-githugger`
 
 0. cd
 
-  `cd ssh-githugger`
+   `cd ssh-githugger`
 
 0. Run the install script
 
-  `bash setup.sh`
+   `bash setup.sh`
 
 0. Run the help example to determine if installation was successful.
 
@@ -19,7 +19,7 @@
  
 0. Run with CLI (You should see a limit of 60)
 
-  `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v` 
+   `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v` 
 
 0. Follow these instructions to generate a personal auth token on GitHub 
 
@@ -27,41 +27,41 @@
 
 0. export that token you just created (xxxxx below)
 
-  `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
+   `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
 
 0. Run with CLI. (You should see LIMIT AS 5000)
 
-  `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v
+   `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v
 
 ## Want to test this as a hello-world systemd service?
 
-> The following is a hardcoded hello-world example for a future ansible template.
+ > The following is a hardcoded hello-world example for a future ansible template.
 
-0. On a VM that you do NOT mind deleting, run the hello world example (You will have to delete this service yourself if you do not choose a disposable VM)
+1. On a VM that you do NOT mind deleting, run the hello world example (You will have to delete this service yourself if you do not choose a disposable VM)
 
 0. Run the install script
 
-  `bash setup.sh`
+   `bash setup.sh`
 
 0. Now install the service
 
-  `bash hello-world-setup.sh`
+   `bash hello-world-setup.sh`
 
 0. export that token you just created above (xxxxx below)
 
-  `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
+   `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
 
 0. Restart the timer and the service. 
 
-  `sudo systemctl restart ssh-githugger.timer && sudo systemctl restart ssh-githugger.service`
+   `sudo systemctl restart ssh-githugger.timer && sudo systemctl restart ssh-githugger.service`
 
 0. Check on your systemd timer. Make sure it is all green and running well. 
 
-  `sudo systemctl status ssh-githugger.timer`
+   `sudo systemctl status ssh-githugger.timer`
 
 0. Check on your systemd service. Make sure it is all green and running well. 
 
-  `sudo systemctl status ssh-githugger.service`
+   `sudo systemctl status ssh-githugger.service`
 
 0. Now write the above as an asible template, or checkout the galaxy githugger role.
 
