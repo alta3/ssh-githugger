@@ -37,7 +37,7 @@
 
  > The following is a hardcoded hello-world example for a future ansible template.
 
-0. On a VM that you do NOT mind deleting, run the hello world example (You will have to delete this service yourself if you do not choose a disposable VM)
+1. On a VM that you do NOT mind deleting, run the hello world example (You will have to delete this service yourself if you do not choose a disposable VM)
 
 0. Run the install script
 
