@@ -1,67 +1,71 @@
 # Setup
 
 
+1. Clone githugger
 
-1. cd to the home directory
+ `git clone git@github.com:alta3/ssh-githugger`
 
-   `cd`
-   
-0. Install git
+0. cd
 
-    `sudo apt install -y git python3.8 virtualenv`
-   
-0. clone this repo, yes at the the prompt
+  `cd ssh-githugger`
 
-    `git clone git@github.com:alta3/ssh-githugger.git`
+0. Run the install script
 
-0. cd into the cloned directory
+  `bash setup.sh`
 
-    `cd ssh-githugger/`
-
-0. Upgrade pip
-    
-    `sudo -H pip3 install --upgrade pip`
-
-0. Install a 3.8 virtual environment.
-
-    `python3.8 -m pip install virtualenv`
-    
-0. Create a 3.8 virtual environment
-
-    `virtualenv -p python3.8 venv`
-    
-0. Activate the virtual enironment
-
-    `source venv/bin/activate`
-
-0. Run the setup script (again) inside the venv to load requirements 
-
-    `./setup.sh`
-  
 0. Run the help example to determine if installation was successful.
 
     `python3.8 ssh-copy-id-from-github.py -h`
-  
-    ```
-    usage: ssh-copy-id-from-github.py [-h] [-a] [-O | -f FILE] [-u USER] username [username ...]
+ 
+0. Run with CLI (You should see a limit of 60)
 
-    positional arguments:
-      username              Public key source Github usernames
+  `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v` 
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -a, --annotate        store public key source details in key annotation
-      -O, --to-stdout       write results to standard output
-      -f FILE, --file FILE  store output in FILE
-      -u USE
-      R, --user USER  store output for USER
-    ```
-  
-0. Install the keys for Sam, Stu, Sean, and BJ. Please use the `-a` to add information about who owns the keys
+0. Follow these instructions to generate a personal auth token on GitHub 
 
-    `python3.8 ssh-copy-id-from-github.py -a -f ~/.ssh/authorized_keys sfeeser seaneon bryfry sgriffith3`  
+   https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 
-0. SHORTCUT!  Just run `sh ./get-keys.sh` to run the above command
+0. export that token you just created (xxxxx below)
+
+  `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
+
+0. Run with CLI. (You should see LIMIT AS 5000)
+
+  `python3 ssh-githugger.py sfeeser seaneon bryfry sgriffith3 -v
+
+## Want to test this as a hello-world systemd service?
+
+> The following is a hardcoded hello-world example for a future ansible template.
+
+0. On a VM that you do NOT mind deleting, run the hello world example (You will have to delete this service yourself if you do not choose a disposable VM)
+
+0. Run the install script
+
+  `bash setup.sh`
+
+0. Now install the service
+
+  `bash hello-world-setup.sh`
+
+0. export that token you just created above (xxxxx below)
+
+  `export GITHUB_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxxx`
+
+0. Restart the timer and the service. 
+
+  `sudo systemctl restart ssh-githugger.timer && sudo systemctl restart ssh-githugger.service`
+
+0. Check on your systemd timer. Make sure it is all green and running well. 
+
+  `sudo systemctl status ssh-githugger.timer`
+
+0. Check on your systemd service. Make sure it is all green and running well. 
+
+  `sudo systemctl status ssh-githugger.service`
+
+0. Now write the above as an asible template, or checkout the galaxy githugger role.
+
+0. Run the help example to determine if installation was successful.
 
 0. Display the changes to the .ssh authorized key file.
 
@@ -178,21 +182,6 @@
     echo Keeper of VMs
     printf "${GREEN}"
     ```
-
-
-
-
-### TODO
-
-- [ ] Add more docstrings
-- [ ] Cleanup functions, refactor if defaults are never exposed
-- [ ] Add logging of all actions completed or failed (stderr) 
-- [ ] Add last updated date to the serilization header comment 
-- [x] Document how-to: Install in a venv
-- [ ] Document how-to: Do a non-destructive test run (example usage)
-- [x] Document how-to: Deployment via systemd periodic task
-- [ ] Document how-to: Install via ansible role
-- [ ] Document how-to: Install via pip
 
 ### Possible future features
 
