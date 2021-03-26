@@ -3,7 +3,7 @@
 
 1. Clone githugger
 
-  `git clone git@github.com:alta3/ssh-githugger`
+   `git clone git@github.com:alta3/ssh-githugger`
 
 0. cd
 
