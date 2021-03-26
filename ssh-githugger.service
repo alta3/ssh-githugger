@@ -1,0 +1,13 @@
+[Unit]
+Description=A Key Pulling Service 
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/ssh-githugger
+EnvironmentFile=/home/ubuntu/.github_oauth_token
+ExecStart=python3 ssh-githugger.py sfeeser bryfry seaneon sgriffith3 -v --token
+StandardOutput=journal+console
+
+[Install]
+WantedBy=multi-user.target

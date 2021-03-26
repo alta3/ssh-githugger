@@ -25,6 +25,7 @@ class BaseClient:
         host,
         path,
         verbose,
+        token,
         port="",
         is_ssl=True,
         timeout=5,
@@ -43,6 +44,7 @@ class BaseClient:
         self.port = port
         self.path = path
         self.verbose = verbose
+        self.token = token
         self.timeout = timeout
         self.retries = retries
         self.retry_wait = retry_wait
@@ -103,7 +105,11 @@ class BaseClient:
         ct = aiohttp.ClientTimeout(total=self.timeout)
         async with aiohttp.ClientSession(timeout=ct) as session:
             try:
-                async with session.get(self.url) as resp:
+                if self.token:
+                    headers = {"Authorization": f"token {self.token}"}
+                else:
+                    headers = {}
+                async with session.get(self.url, headers=headers) as resp:
                     data = await resp.json()
                     hed = resp.headers
                     self.countdown =  int(hed['X-RateLimit-Reset']) - int(time.time())

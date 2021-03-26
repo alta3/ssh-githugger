@@ -42,6 +42,13 @@ def parse_args():
         help="String: The LINUX USER that the ssh-keys will target",
     )
     parser.add_argument(
+        "-tok",
+        "--token",
+        action="store_true", 
+        default=False, 
+        help="Boolean: Triggers reading GITHUB_OAUTH_TOKEN environmental variable."
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
@@ -60,6 +67,7 @@ if __name__ == "__main__":
         verbose=args.verbose,
         user=args.target_user,
         filename=args.file,
+        token=args.token,
     )
     loop.run_until_complete(ak.collect_keys())
 
