@@ -1,6 +1,7 @@
 import pwd
 import os
 import tempfile
+import logging
 from typing import Union, List
 from dataclasses import dataclass, field
 from dataclasses_jsonschema import JsonSchemaMixin
@@ -16,8 +17,10 @@ class Key(JsonSchemaMixin):
 
 @dataclass
 class GithubAuthorizedKeyFile(JsonSchemaMixin):
+
     github_users: Union[str, List[str]]
     annotate: bool
+    verbose: bool
     filename: str = None
     keys: List[Key] = field(default_factory=list)
     user: str = None
@@ -29,14 +32,20 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
         if self.filename is None:
             err, self.filename = self.keyfile(user=self.user, write=True)
 
-    async def collect_keys(self):
+        self.logger = logging.getLogger("aiohttp.internal")
 
+    async def collect_keys(self):
         for user in self.github_users:
             client = BaseClient(
-                host="api.github.com", path=f"/users/{user}/keys"
+                host="api.github.com", 
+                path=f"/users/{user}/keys",
+                verbose=self.verbose,
             )
             err, data = await client.get_data()
-            print(err, "\n\n\n\n", data)
+            if (err != None):
+                msg = (f"The user: ------>{user}<------ does NOT exist on github")
+                self.logger.error(msg)
+                exit(1)
             user_keys = [Key(**k, user=user) for k in data]
             self.keys = [*self.keys, *user_keys]
 
