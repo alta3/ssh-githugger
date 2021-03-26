@@ -1,0 +1,12 @@
+[Unit]
+Description=TIMER ssh-githugger
+Requires=ssh-githugger.service
+
+[Timer]
+Unit=ssh-githugger.service
+OnUnitActiveSec=15min
+RandomizedDelaySec=60
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

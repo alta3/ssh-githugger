@@ -21,6 +21,7 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
     github_users: Union[str, List[str]]
     annotate: bool
     verbose: bool
+    token: bool
     filename: str = None
     keys: List[Key] = field(default_factory=list)
     user: str = None
@@ -34,12 +35,24 @@ class GithubAuthorizedKeyFile(JsonSchemaMixin):
 
         self.logger = logging.getLogger("aiohttp.internal")
 
+    async def collect_token(self):
+        try:
+            tkn = os.getenv("GITHUB_OAUTH_TOKEN")
+        except Exception as err:
+            msg = f"Token Not Found: {err}"
+            print("token not found")
+            self.logger.error(msg)
+            tkn = None
+        return tkn
+
     async def collect_keys(self):
+        tokn = await self.collect_token()
         for user in self.github_users:
             client = BaseClient(
                 host="api.github.com", 
                 path=f"/users/{user}/keys",
                 verbose=self.verbose,
+                token=tokn,
             )
             err, data = await client.get_data()
             if (err != None):
