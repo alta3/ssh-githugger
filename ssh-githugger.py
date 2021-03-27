@@ -6,8 +6,8 @@ from lib.authorized_key import GithubAuthorizedKeyFile
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "source_user",
-        metavar="username",
+        "source_users",
+        metavar="source_users",
         type=str,
         nargs="+",
         help="CSV String: A positional argument in CSV form, listing Github usernames. EXAMPLE: ssh-githugger.py sally,sid,jasper",
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     args = parse_args()
     loop = asyncio.get_event_loop()
     ak = GithubAuthorizedKeyFile(
-        github_users=args.source_user,
+        github_users=args.source_users,
         annotate=args.annotate,
         verbose=args.verbose,
         user=args.target_user,
