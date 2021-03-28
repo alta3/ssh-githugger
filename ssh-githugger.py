@@ -6,8 +6,8 @@ from lib.authorized_key import GithubAuthorizedKeyFile
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "source_user",
-        metavar="username",
+        "source_users",
+        metavar="source_users",
         type=str,
         nargs="+",
         help="CSV String: A positional argument in CSV form, listing Github usernames. EXAMPLE: ssh-githugger.py sally,sid,jasper",
@@ -17,7 +17,7 @@ def parse_args():
         "--annotate",
         dest="annotate",
         action="store_true",
-        help="Boolean: Triggers any discovered metadata to be added as an annotation to the key data",
+        help="Boolean: Default=True Triggers any discovered metadata to be added as an annotation to the key data",
     )
     output_group = parser.add_mutually_exclusive_group()
     output_group.add_argument(
@@ -25,7 +25,7 @@ def parse_args():
         "--to-stdout",
         dest="stdout",
         action="store_true",
-        help="Boolean: Triggers results to be sent to standard out ONLY",
+        help="Boolean: Default=True Triggers results to be sent to standard out ONLY",
     )
     output_group.add_argument(
         "-f", 
@@ -36,17 +36,10 @@ def parse_args():
     )
     parser.add_argument(
         "-t",
-        "--target_user",
-        type=str,
-        default=None,
-        help="String: The LINUX USER that the ssh-keys will target",
-    )
-    parser.add_argument(
-        "-tok",
         "--token",
-        action="store_true", 
-        default=False, 
-        help="Boolean: Triggers reading GITHUB_OAUTH_TOKEN environmental variable."
+        type=str,
+        default=None, 
+        help="String: Enter the OAUTH token here on the command line. Environmental var: GHUGGER_OATH_TOKEN will override your command line entry."
     )
     parser.add_argument(
         "-v",
@@ -62,10 +55,9 @@ if __name__ == "__main__":
     args = parse_args()
     loop = asyncio.get_event_loop()
     ak = GithubAuthorizedKeyFile(
-        github_users=args.source_user,
+        github_users=args.source_users,
         annotate=args.annotate,
         verbose=args.verbose,
-        user=args.target_user,
         filename=args.file,
         token=args.token,
     )
