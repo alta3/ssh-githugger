@@ -38,8 +38,8 @@ def parse_args():
         "-t",
         "--token",
         type=str,
-        default="GITHUB_OAUTH_TOKEN", 
-        help="String: Default: GITHUB_OAUTH_TOKEN. The NAME of the OAUTH token."
+        default=None, 
+        help="String: Enter the OAUTH token here on the command line. Environmental var: GHUGGER_OATH_TOKEN will override your command line entry."
     )
     parser.add_argument(
         "-v",
