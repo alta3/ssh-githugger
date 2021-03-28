@@ -6,7 +6,7 @@ C = TypeVar("C", bound="EASConfig")
 
 
 @dataclass(frozen=True)
-class EASConfig:
+class SGHConfig:
     environment: str
     port: int
     listen_interface: str
