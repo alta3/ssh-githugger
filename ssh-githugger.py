@@ -49,17 +49,39 @@ def parse_args():
     )
     parser.set_defaults(stdout=False, annotate=False)
     return parser.parse_args()
-
+     
 
 if __name__ == "__main__":
     args = parse_args()
+    envs = SSHGHConfig(
+        {   source_user,
+            annotate,
+            stdout,
+            file,
+            token,
+            verbose,
+        },
+        how_do_I_pass_the_environment???????????
+    )         
+
+    if (envs.source_users != None):
+        github_users = args.source_users
+    if (envs.annotate != None):
+        annotate=args.annotate
+    if (envs.verbose != None):
+        verbose=args.verbose
+    if (envs.filename != None):
+        filename=args.file
+    if (envs.token != None):
+        token=args.token
+
     loop = asyncio.get_event_loop()
     ak = GithubAuthorizedKeyFile(
-        github_users=args.source_users,
-        annotate=args.annotate,
-        verbose=args.verbose,
-        filename=args.file,
-        token=args.token,
+        github_users,
+        annotate,
+        verbose,
+        filename,
+        token,
     )
     loop.run_until_complete(ak.collect_keys())
 
