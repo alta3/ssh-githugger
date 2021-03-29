@@ -26,10 +26,10 @@ class SSHGHConfig:
         verbose = int(environ.get("GHUGGER_VERBOSE"))
 
         return envs(
-            ghugger_source_user=ghugger_source_user,
-            ghugger_annotate=ghugger_annotate,
-            ghugger_stdout,ghugger_stdout,
-            ghugger_file=ghugger_file,
-            ghugger_token=ghugger_token,
-            ghugger_verbose,ghugger_verbose,
+            source_user,
+            annotate,
+            stdout,
+            ghugger,
+            ghugger,
+            ghuggerverbose,
         )
